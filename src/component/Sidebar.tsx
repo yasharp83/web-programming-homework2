@@ -6,11 +6,12 @@ import type { ShapeType } from "../types";
 const shapes: ShapeType[] = ['circle' , 'square' , 'triangle'];
 
 const Sidebar: React.FC = () =>{
-    const onDrag = (
+    const on_drag_start = (
         ev : React.DragEvent<HTMLDivElement>,
         shape: ShapeType
     ) =>{
         ev.dataTransfer.setData('shape' , shape) ;
+        console.log(shape + " started dragged");
     };
 
     return(
@@ -29,7 +30,7 @@ const Sidebar: React.FC = () =>{
                     <div
                         key={shape}
                         draggable
-                        onDrag = {(ev) => onDrag(ev, shape)}
+                        onDragStart = {(ev) => on_drag_start(ev, shape)}
                         style={{cursor:'grab'}}
                     >
                         <ShapeObject type={shape} size={120} />
