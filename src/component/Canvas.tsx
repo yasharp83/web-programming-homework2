@@ -44,8 +44,7 @@ const Canvas : React.FC<CanvasProps> =({
             style = {
                 {
                     flex:1,
-                    margin:16,
-                    border: '1px solid #ccc',
+                    margin:60,
                     position: 'relative'
                 }
             }

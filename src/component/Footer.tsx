@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({shapes}) =>{
         <div
             style={
                 {
-                    borderTop: '1px solid #ccc',
+                    borderTop: '4px solid #ccc',
                     padding: '8px 16px',
                     display: 'flex',
                     justifyContent: 'center',

@@ -19,28 +19,36 @@ function App() {
     setShapes((prev) => prev.filter((s) => s.id !== id));
   };
 
+
+  const handleImport = (data : {title : string , shapes : Shape[]}) => {
+      setTitle(data.title);
+      setShapes(data.shapes);
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '80vh' , width: '80vw' , border:'1px solid #ccc'}}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '80vh' , width: '80vw' , border:'4px solid #ccc'}}>
         <div
           style={{
               display: 'flex',
               alignItems: 'center',
               padding: 16,
-              borderBottom: '1px solid #ccc',
+              borderBottom: '4px solid #ccc',
           }}
         >
           <Header
               title={title}
               onTitleChange={setTitle}
+              shapes={shapes}
+              onImport={handleImport}
           />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>
             <div
               style={{
                 width: 150,
-                borderLeft: '1px solid #ccc',
-                borderRight: '1px solid #ccc',
-                border:'1px solid #ccc',
+                borderLeft: '4px solid #ccc',
+                borderRight: '4px solid #ccc',
+                border:'4px solid #ccc',
                 padding: 16
               }}
             >
