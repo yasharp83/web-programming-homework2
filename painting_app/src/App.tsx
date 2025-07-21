@@ -43,22 +43,21 @@ function App() {
           />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>
+            <Canvas
+              shapes={shapes}
+              onAddShape={addShape}
+              onRemoveShape={removeShape}
+            />
             <div
               style={{
                 width: 150,
                 borderLeft: '4px solid #ccc',
-                borderRight: '4px solid #ccc',
                 border:'4px solid #ccc',
                 padding: 16
               }}
             >
               <Sidebar />
             </div>
-            <Canvas
-              shapes={shapes}
-              onAddShape={addShape}
-              onRemoveShape={removeShape}
-            />
         </div>
         <Footer shapes={shapes}/>
     </div>
