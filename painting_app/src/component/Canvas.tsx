@@ -1,7 +1,7 @@
 import React from "react";
 import type { Shape , ShapeType } from "../types";
 import ShapeObject from "./ShapeObject";
-
+import { ShapeSize } from "../types";
 
 interface CanvasProps {
     shapes : Shape[],
@@ -25,10 +25,12 @@ const Canvas : React.FC<CanvasProps> =({
     const handleDrop = (ev :React.DragEvent) =>{
         ev.preventDefault();
         const shapeType = ev.dataTransfer.getData('shape') as ShapeType;
+        const offsetX = parseFloat(ev.dataTransfer.getData('offsetX')) || 0;
+        const offsetY = parseFloat(ev.dataTransfer.getData('offsetY')) || 0;
         if (ref.current && shapeType){
             const rect = ref.current.getBoundingClientRect();
-            const x = ev.clientX - rect.left;
-            const y = ev.clientY - rect.top;
+            const x = ev.clientX - rect.left - offsetX + ShapeSize/2;
+            const y = ev.clientY - rect.top - offsetY + ShapeSize/2;
             onAddShape({
                 type: shapeType, x, y,
             });
@@ -44,7 +46,7 @@ const Canvas : React.FC<CanvasProps> =({
             style = {
                 {
                     flex:1,
-                    margin:60,
+                    margin:ShapeSize/2,
                     position: 'relative'
                 }
             }
@@ -64,7 +66,7 @@ const Canvas : React.FC<CanvasProps> =({
                             }
                         }
                     >
-                        <ShapeObject type={s.type} size={120}/>
+                        <ShapeObject type={s.type} size={ShapeSize}/>
                     </div>
                 ))
             }

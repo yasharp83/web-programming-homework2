@@ -1,6 +1,6 @@
 import React from "react";
 import ShapeObject from "./ShapeObject";
-import type { ShapeType } from "../types";
+import { ShapeSize, type ShapeType } from "../types";
 
 
 const shapes: ShapeType[] = ['circle' , 'square' , 'triangle'];
@@ -11,7 +11,13 @@ const Sidebar: React.FC = () =>{
         shape: ShapeType
     ) =>{
         ev.dataTransfer.setData('shape' , shape) ;
-        console.log(shape + " started dragged");
+        // Record the offset of the mouse within the shape
+        const rect = (ev.target as HTMLElement).getBoundingClientRect();
+        const offsetX = ev.clientX - rect.left;
+        const offsetY = ev.clientY - rect.top;
+        ev.dataTransfer.setData('offsetX', offsetX.toString());
+        ev.dataTransfer.setData('offsetY', offsetY.toString());
+        console.log(shape + " started dragged at offset:", offsetX, offsetY);
     };
 
     return(
@@ -33,7 +39,7 @@ const Sidebar: React.FC = () =>{
                         onDragStart = {(ev) => on_drag_start(ev, shape)}
                         style={{cursor:'grab'}}
                     >
-                        <ShapeObject type={shape} size={120} />
+                        <ShapeObject type={shape} size={ShapeSize} />
                     </div>
                     )
                 )

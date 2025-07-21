@@ -35,25 +35,25 @@ const Header : React.FC<HeaderProps> = ({
 
 
     const handleImport = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const text = e.target?.result as string;
-        const parsed = JSON.parse(text);
-        if (
-          typeof parsed.title === 'string' &&
-          Array.isArray(parsed.shapes)
-        ) {
-          onImport(parsed);
-        } else {
-          throw new Error();
-        }
-      } catch {
-        message.error('Invalid JSON format');
-      }
-    };
-    reader.readAsText(file);
-    return false;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const text = e.target?.result as string;
+            const parsed = JSON.parse(text);
+            if (
+              typeof parsed.title === 'string' &&
+              Array.isArray(parsed.shapes)
+            ) {
+              onImport(parsed);
+            } else {
+              throw new Error();
+            }
+          } catch {
+            message.error('Invalid JSON format');
+          }
+        };
+        reader.readAsText(file);
+        return false;
   };
 
     return(
