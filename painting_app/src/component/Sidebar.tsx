@@ -11,7 +11,6 @@ const Sidebar: React.FC = () =>{
         shape: ShapeType
     ) =>{
         ev.dataTransfer.setData('shape' , shape) ;
-        // Record the offset of the mouse within the shape
         const rect = (ev.target as HTMLElement).getBoundingClientRect();
         const offsetX = ev.clientX - rect.left;
         const offsetY = ev.clientY - rect.top;
