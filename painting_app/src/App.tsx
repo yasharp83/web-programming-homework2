@@ -6,10 +6,28 @@ import Canvas from './component/Canvas'
 import type { Shape } from './types'
 import Footer from './component/Footer';
 import Header from './component/Header';
+import { useParams } from 'react-router-dom';
+import { updatePainting , getPainting } from './api';
 
 function App() {
+  const { username } = useParams<{ username: string }>();
   const [shapes , setShapes] = useState<Shape[]>([]);
-  const [title , setTitle] = useState('Title')
+  const [title , setTitle] = useState('')
+
+  useState(() => {
+    if (username) {
+      console.log(username);
+      getPainting(username)
+        .then(data => {
+          console.log(data);
+          setTitle(data.title);
+          setShapes(data.shapes);
+        })
+        .catch(error => {
+          console.error('Error fetching painting:', error);
+        });
+    }
+  });
 
   const addShape = (s: Omit<Shape, 'id'>) => {
     setShapes((prev) => [...prev, { ...s, id: uuidv4() }]);
@@ -23,6 +41,10 @@ function App() {
   const handleImport = (data : {title : string , shapes : Shape[]}) => {
       setTitle(data.title);
       setShapes(data.shapes);
+  };
+
+  const handleSave = (data : { title: string; shapes: Shape[] }) => {
+      updatePainting(username!, data.title, data.shapes);
   };
 
   return (
@@ -40,6 +62,7 @@ function App() {
               onTitleChange={setTitle}
               shapes={shapes}
               onImport={handleImport}
+              onSave={handleSave}
           />
         </div>
         <div style={{ display: 'flex', flex: 1 }}>

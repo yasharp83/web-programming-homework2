@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Button, Upload , message} from 'antd';
-import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
+import { UploadOutlined, DownloadOutlined , SaveOutlined } from '@ant-design/icons';
 import type { Shape } from '../types';
 
 interface HeaderProps{
@@ -8,6 +8,7 @@ interface HeaderProps{
     onTitleChange: (newTitle:string) => void;
     shapes : Shape[];
     onImport : (data: { title: string; shapes: Shape[] }) => void;
+    onSave : (data: { title: string; shapes: Shape[] }) => void;
 }
 
 
@@ -16,7 +17,8 @@ const Header : React.FC<HeaderProps> = ({
     title,
     onTitleChange,
     shapes,
-    onImport
+    onImport,
+    onSave
 }) => {
 
     const handleExport = () =>{
@@ -77,6 +79,13 @@ const Header : React.FC<HeaderProps> = ({
                 onClick={handleExport}
             >
                 Export
+            </Button>
+            
+            <Button 
+                icon={<SaveOutlined />}
+                onClick={onSave.bind(null, { title, shapes })}
+            >
+                Save
             </Button>
         </div>
     );
